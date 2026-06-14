@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISO | Residential Modular - Professional Playbook</title>
+    <!-- Tailwind CSS for high-fidelity UI design -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons for architectural symbols and markers -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & JetBrains Mono for legibility -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800&family=JetBrains+Mono:wght=400;500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        blueprint: {
+                            50: '#f0f5fa',
+                            100: '#ddecf5',
+                            500: '#1e40af',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            active: '#3b82f6',
+                            passive: '#06b6d4',
+                            core: '#22c55e',
+                            circulation: '#ef4444',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+        .blueprint-grid {
+            background-size: 24px 24px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+        .blueprint-grid-fine {
+            background-size: 8px 8px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+        /* Blueprint invert style toggle classes */
+        .blueprint-mode {
+            filter: invert(0.9) sepia(0.1) saturate(2.5) hover-rotate(185deg) brightness(1.05) contrast(1.15) !important;
+            mix-blend-mode: screen;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-blue-600 selection:text-white">
+
+    <!-- App Container -->
+    <div class="flex h-screen overflow-hidden">
+        
+        <!-- Interactive Navigation Sidebar -->
+        <aside class="w-80 bg-slate-900 border-r border-slate-800 flex flex-col shrink-0">
+            <!-- Header Identity -->
+            <div class="p-6 border-b border-slate-800 flex items-center gap-3">
+                <div class="p-2 bg-blue-600/10 text-blue-500 rounded-lg border border-blue-500/20">
+                    <i class="fa-solid fa-cubes-stacked text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-sm font-bold tracking-wider text-slate-200 uppercase">EchelonMODULAR</h1>
+                    <p class="text-[11px] text-slate-500 font-mono tracking-widest uppercase">AEC Technical Manual</p>
+                </div>
+            </div>
+
+            <!-- Table of Contents Navigation -->
+            <nav class="flex-1 overflow-y-auto p-4 space-y-2">
+                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">Chapters</div>
+                
+                <button onclick="switchChapter('chapter1')" id="nav-chapter1" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-xs font-medium transition-all bg-blue-600/10 text-blue-400 border border-blue-500/20">
+                    <span class="font-mono text-blue-500">01</span>
+                    <span>Spatial & Architectural Massing</span>
+                </button>
+                
+                <button onclick="switchChapter('chapter2')" id="nav-chapter2" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-xs font-medium text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all border border-transparent">
+                    <span class="font-mono text-slate-500">02</span>
+                    <span>Structural Engineering Logic</span>
+                </button>
+
+                <button onclick="switchChapter('chapter3')" id="nav-chapter3" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-xs font-medium text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all border border-transparent">
+                    <span class="font-mono text-slate-500">03</span>
+                    <span>Interactive Floor Plate Analysis</span>
+                </button>
+
+                <button onclick="switchChapter('chapter4')" id="nav-chapter4" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-xs font-medium text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all border border-transparent">
+                    <span class="font-mono text-slate-500">04</span>
+                    <span>1-BR Unit & Section Explorer</span>
+                </button>
+
+                <button onclick="switchChapter('chapter5')" id="nav-chapter5" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-xs font-medium text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all border border-transparent">
+                    <span class="font-mono text-slate-500">05</span>
+                    <span>Pre-Fab & Assembly Workflows</span>
+                </button>
+
+                <button onclick="switchChapter('chapter6')" id="nav-chapter6" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-xs font-medium text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all border border-transparent">
+                    <span class="font-mono text-slate-500">06</span>
+                    <span>Technical Spec & Material Takeoff</span>
+                </button>
+
+                <div class="pt-4 border-t border-slate-800 mt-4">
+                    <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">Reference Files</div>
+                    <div class="space-y-1.5 px-3">
+                        <div class="text-[11px] text-slate-400 font-mono flex items-center gap-2">
+                            <i class="fa-solid fa-cube text-blue-400"></i> Sketchfab BIM View <span class="text-[9px] text-emerald-400 bg-emerald-400/10 px-1 border border-emerald-400/20 rounded font-sans">Active</span>
+                        </div>
+                        <div class="text-[11px] text-slate-400 font-mono flex items-center gap-2">
+                            <i class="fa-solid fa-file-image text-slate-600"></i> floorplan-TYP.jpg
+                        </div>
+                        <div class="text-[11px] text-slate-400 font-mono flex items-center gap-2">
+                            <i class="fa-solid fa-file-image text-slate-600"></i> section A-A1.jpg
+                        </div>
+                        <div class="text-[11px] text-slate-400 font-mono flex items-center gap-2">
+                            <i class="fa-solid fa-file-image text-slate-600"></i> section A-A2.jpg
+                        </div>
+                        <div class="text-[11px] text-slate-400 font-mono flex items-center gap-2">
+                            <i class="fa-solid fa-file-image text-slate-600"></i> section A-A3.jpg
+                        </div>
+                        <div class="text-[11px] text-slate-400 font-mono flex items-center gap-2">
+                            <i class="fa-solid fa-file-image text-slate-600"></i> section B-B1.jpg
+                        </div>
+                        <div class="text-[11px] text-slate-400 font-mono flex items-center gap-2">
+                            <i class="fa-solid fa-file-image text-slate-600"></i> section B-B2.jpg
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Sidebar Footer -->
+            <div class="p-4 border-t border-slate-800 bg-slate-950 flex items-center justify-between">
+                <div class="text-[10px] font-mono text-slate-500">
+                    STATUS: <span class="text-emerald-500 font-bold">APPROVED FOR DESIGN</span>
+                </div>
+                <div class="text-[10px] font-mono text-slate-500">V3.3</div>
+            </div>
+        </aside>
+
+        <!-- Main Content Viewport -->
+        <main class="flex-1 flex flex-col overflow-hidden bg-slate-950 relative">
+            
+            <header class="h-16 border-b border-slate-800 flex items-center justify-between px-8 bg-slate-900/60 backdrop-blur shrink-0 z-10">
+                <div class="flex items-center gap-3">
+                    <span id="current-chapter-id" class="text-xs font-mono px-2 py-0.5 bg-blue-600/20 text-blue-400 rounded border border-blue-500/20">CHAPTER 01</span>
+                    <h2 id="current-chapter-title" class="text-sm font-semibold text-slate-200">Spatial & Architectural Massing</h2>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+                        <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        BIM MODEL IN SYNC
+                    </span>
+                    <button onclick="openPrintView()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-lg border border-slate-700 transition-colors flex items-center gap-1.5">
+                        <i class="fa-solid fa-print"></i> Export Spec
+                    </button>
+                </div>
+            </header>
+
+            <!-- Scrollable Content Window -->
+            <div id="content-container" class="flex-1 overflow-y-auto px-8 py-10 space-y-12 max-w-5xl mx-auto w-full pb-24">
+                
+                <!-- CHAPTER 1: SPATIAL & ARCHITECTURAL MASSING -->
+                <section id="chapter1" class="space-y-6">
+                    <div class="border-l-4 border-blue-500 pl-4 space-y-1">
+                        <h3 class="text-2xl font-extrabold tracking-tight text-slate-100">01. Spatial & Architectural Massing</h3>
+                        <p class="text-xs text-slate-400 uppercase font-mono tracking-widest font-semibold">AEC Concept Precedent: echelon facade.jpg & ECHELON.jpg</p>
+                    </div>
+
+                    <!-- Live Hardware-Accelerated 3D Viewport Block -->
+                    <div class="p-6 bg-slate-900 border border-slate-800 rounded-xl flex flex-col xl:flex-row gap-6">
+                        
+                        <!-- 3D Canvas / Render Switcher Box -->
+                        <div class="w-full xl:w-3/5 bg-slate-950 border border-slate-800 rounded-lg relative overflow-hidden h-[450px]">
+                            
+                            <!-- Tab Switcher for Viewport 1 -->
+                            <div class="absolute top-4 right-4 z-20 flex bg-slate-900/90 border border-slate-800 p-1 rounded-lg shadow-lg">
+                                <button onclick="setCh1Viewport('3d')" id="btn-view-3d" class="px-2.5 py-1 text-[11px] font-mono font-bold rounded bg-blue-600 text-white transition-all">
+                                    3D Model
+                                </button>
+                                <button onclick="setCh1Viewport('render')" id="btn-view-render" class="px-2.5 py-1 text-[11px] font-mono rounded text-slate-400 hover:text-slate-200 transition-all">
+                                    AEC Render
+                                </button>
+                            </div>
+
+                            <div class="absolute top-4 left-4 z-10 flex flex-col space-y-2 pointer-events-none">
+                                <span id="ch1-viewport-badge" class="text-[10px] font-mono text-blue-400 bg-slate-900/95 border border-slate-800/80 px-2.5 py-1 rounded shadow-lg flex items-center gap-1.5 self-start animate-pulse">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-blue-400 animate-ping"></span>
+                                    SKETCHFAB 3D ENGINE
+                                </span>
+                            </div>
+
+                            <!-- Interactive Orbit helper tag -->
+                            <div id="ch1-interactive-helper" class="absolute bottom-4 left-4 z-10 text-[9px] font-mono text-slate-400 bg-slate-950/90 p-1.5 rounded border border-slate-800 pointer-events-none">
+                                <i class="fa-solid fa-circle-info mr-1"></i> Interactive orbit, pan, and zoom enabled.
+                            </div>
+
+                            <!-- Viewer Content Wrapper -->
+                            <div class="w-full h-full relative">
+                                <!-- Sketchfab 3D Viewport -->
+                                <div id="ch1-viewport-3d" class="w-full h-full">
+                                    <iframe id="sketchfab-frame" 
+                                            src="https://sketchfab.com/models/4afdfdd59fd94123b7296329e8475a39/embed?autostart=1&preload=1&ui_controls=1&ui_infos=0&ui_watermark=0&ui_theme=dark" 
+                                            class="w-full h-full border-0" 
+                                            allow="autoplay; fullscreen; xr-spatial-tracking" 
+                                            xr-spatial-tracking 
+                                            execution-while-out-of-viewport 
+                                            execution-while-not-rendered 
+                                            web-share>
+                                    </iframe>
+                                </div>
+
+                                <!-- High fidelity Concept Render Viewport (echelon facade.jpg) -->
+                                <div id="ch1-viewport-render" class="w-full h-full hidden bg-slate-950">
+                                    <img src="echelon%20facade.jpg" alt="Echelon Facade High-Fidelity Render" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/900x600/1e293b/94a3b8?text=echelon+facade.jpg'">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Technical Information Panel -->
+                        <div class="flex-1 flex flex-col justify-between space-y-4">
+                            <div class="space-y-3">
+                                <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/15 px-1.5 py-0.5 rounded border border-emerald-500/20 uppercase font-bold tracking-wider">3D BIM Model Loaded</span>
+                                <h4 class="text-lg font-bold text-slate-200">The EchelonMODULAR Digital Complex</h4>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    This interactive viewport streams a fully-textured, optimized 3D BIM asset of a **Modular Residential Building** live from Sketchfab. This model accurately represents stacking boundaries, facade panel offsets, and glazed unit envelopes.
+                                </p>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-slate-950 p-3 rounded border border-slate-800/80">
+                                    <div class="text-[10px] font-mono text-slate-500 uppercase font-bold">MODEL SOURCE ID</div>
+                                    <div class="text-xs font-bold text-blue-400 mt-1 font-mono">4afdfdd59fd9...</div>
+                                </div>
+                                <div class="bg-slate-950 p-3 rounded border border-slate-800/80">
+                                    <div class="text-[10px] font-mono text-slate-500 uppercase font-bold">STAGGER FACADE OFFSET</div>
+                                    <div class="text-xs font-bold text-cyan-400 mt-1">1200mm Horizontal Pitch</div>
+                                </div>
+                            </div>
+
+                            <div class="p-3 bg-blue-950/20 border border-blue-500/10 rounded-lg text-[11px] text-slate-400 leading-relaxed">
+                                <i class="fa-solid fa-microchip text-blue-400 mr-2"></i> Real-time viewer leverages high-performance WebGL &amp; WebXR standards to stream detailed assemblies onto all modern viewports.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h4 class="text-sm font-bold tracking-widest uppercase font-mono text-slate-400">Core Massing Program</h4>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Based on the floor plate layout in <strong>ECHELON.jpg</strong>, the structure is arranged around four dedicated spatial zones, aligning horizontal utility and mechanical mains along centralized avenues.
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <div class="p-4 rounded-xl border border-blue-500/20 bg-blue-500/5 space-y-2">
+                                <div class="text-xs font-mono text-blue-400 font-bold">1-BED APARTMENTS (BLUE)</div>
+                                <p class="text-xs text-slate-400">Eight modular assemblies configured symmetrically around the central pathway corridor.</p>
+                            </div>
+                            <div class="p-4 rounded-xl border border-cyan-500/20 bg-cyan-500/5 space-y-2">
+                                <div class="text-xs font-mono text-cyan-400 font-bold">BACHELOR APARTMENTS (CYAN)</div>
+                                <p class="text-xs text-slate-400">Two micro-units capping off the far edges of the horizontal hallway plan.</p>
+                            </div>
+                            <div class="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 space-y-2">
+                                <div class="text-xs font-mono text-emerald-400 font-bold">PRIMARY CORE (GREEN/RED)</div>
+                                <p class="text-xs text-slate-400">The detached service riser envelope containing lifts, mechanical rooms, and primary emergency stairs.</p>
+                            </div>
+                            <div class="p-4 rounded-xl border border-rose-500/20 bg-rose-500/5 space-y-2">
+                                <div class="text-xs font-mono text-rose-400 font-bold">CIRCULATION HALL (RED)</div>
+                                <p class="text-xs text-slate-400">The central corridor connecting all apartments to the circulation cores.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CHAPTER 2: STRUCTURAL ENGINEERING LOGIC -->
+                <section id="chapter2" class="space-y-6 hidden">
+                    <div class="border-l-4 border-blue-500 pl-4 space-y-1">
+                        <h3 class="text-2xl font-extrabold tracking-tight text-slate-100">02. Structural Engineering Logic</h3>
+                        <p class="text-xs text-slate-400 uppercase font-mono tracking-widest font-semibold">ISO Modifications & Core Ties</p>
+                    </div>
+
+                    <div class="space-y-4 text-sm text-slate-300 leading-relaxed">
+                        <p>
+                            Standard ISO shipping containers rely on corrugated sidewalls to distribute shear and vertical forces. When combining two containers to construct spacious 1-Bedroom units (as visible in <strong>floorplan-TYP.jpg</strong>), structural cutouts are required. We reinforce the compromised structural envelope by placing physical sister beams and columns.
+                        </p>
+                    </div>
+
+                    <!-- Technical Section Diagram & Highlights -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-4">
+                            <h4 class="text-xs font-bold font-mono uppercase text-slate-400 tracking-wider">Modifications: Side Wall Removal</h4>
+                            <div class="p-4 bg-slate-950 border border-slate-800 rounded-lg font-mono text-[11px] text-slate-400 space-y-2">
+                                <div class="text-blue-400 font-bold"># STRUCTURAL CHECKLIST</div>
+                                <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> Over-Head Column Insertion: HSS 150x150x6mm</div>
+                                <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> Corner Casting Twist-Lock Locking Engagement</div>
+                                <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> Mid-Span Bolted Flange Connector Alignment</div>
+                                <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-500"></i> Floor-Line Structural Sister-Joist Retrofit</div>
+                            </div>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                The central demising seam features an overhead beam spanning the full unit length (clearly defined as "OVERHEAD BEAM" in the <strong>floorplan-TYP.jpg</strong> blueprint). This transfers live and static weight to corner structural members, securing stacking capabilities up to 4 levels.
+                            </p>
+                        </div>
+                        <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-4">
+                            <h4 class="text-xs font-bold font-mono uppercase text-slate-400 tracking-wider">Tension, Wind, and Seismic Locking</h4>
+                            <p class="text-xs text-slate-300">
+                                Stacked modular blocks must behave as a singular structure under dynamic wind loads and seismic events. Standard twist-locks at the corner castings must be coupled with heavy perimeter tie plate welding.
+                            </p>
+                            <div class="p-4 bg-slate-950 rounded-lg border border-slate-800 flex items-center justify-center py-6">
+                                <!-- Interlock Diagram representation -->
+                                <svg class="w-full max-w-[240px]" viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="5" y="5" width="40" height="20" rx="2" stroke="#475569" stroke-width="2" fill="#1e293b"/>
+                                    <rect x="55" y="5" width="40" height="20" rx="2" stroke="#475569" stroke-width="2" fill="#1e293b"/>
+                                    <rect x="5" y="35" width="40" height="20" rx="2" stroke="#475569" stroke-width="2" fill="#1e293b"/>
+                                    <rect x="55" y="35" width="40" height="20" rx="2" stroke="#475569" stroke-width="2" fill="#1e293b"/>
+                                    <path d="M 45 15 L 55 15" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="2"/>
+                                    <path d="M 45 45 L 55 45" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="2"/>
+                                    <!-- Coupling pins -->
+                                    <rect x="21" y="22" width="8" height="16" rx="1" fill="#22c55e"/>
+                                    <rect x="71" y="22" width="8" height="16" rx="1" fill="#22c55e"/>
+                                    <text x="50" y="31" fill="#22c55e" font-size="6" font-family="monospace" text-anchor="middle">CORNER INTERLOCK</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CHAPTER 3: INTERACTIVE FLOOR PLATE ANALYSIS -->
+                <section id="chapter3" class="space-y-6 hidden">
+                    <div class="border-l-4 border-blue-500 pl-4 space-y-1">
+                        <h3 class="text-2xl font-extrabold tracking-tight text-slate-100">03. Interactive Floor Plate Analysis</h3>
+                        <p class="text-xs text-slate-400 uppercase font-mono tracking-widest font-semibold">BIM Architectural Space Demarcations</p>
+                    </div>
+
+                    <p class="text-sm text-slate-300">
+                        Select your view mode below to either trace individual space classifications inside our **Interactive Zone Explorer** or review the complete structural construction document **Typical Floorplan Sheet (`ECHELON.jpg`)**.
+                    </p>
+
+                    <!-- Interactive Map Visualization with Toggle -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-6">
+                        
+                        <!-- Tab controls for Ch3 Map Viewport -->
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                            <span class="text-xs font-mono text-slate-400 font-bold uppercase">LEVEL MAP VIEWPORT</span>
+                            <div class="flex bg-slate-950 p-1 rounded-lg border border-slate-800">
+                                <button onclick="setCh3Viewport('explorer')" id="btn-ch3-explorer" class="px-3 py-1.5 text-xs font-mono font-bold rounded bg-blue-600 text-white transition-all">
+                                    Interactive Explorer
+                                </button>
+                                <button onclick="setCh3Viewport('sheet')" id="btn-ch3-sheet" class="px-3 py-1.5 text-xs font-mono rounded text-slate-400 hover:text-slate-200 transition-all">
+                                    Full typical Floorplan (ECHELON.jpg)
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Mini interactive floor plan canvas styled like blueprint -->
+                        <div id="ch3-explorer-container" class="p-4 bg-slate-950 border border-slate-800 rounded-xl blueprint-grid relative">
+                            <div class="text-[10px] font-mono text-slate-500 mb-2">TYPICAL RESIDENTIAL LEVEL (FLOORS 1 - 4)</div>
+                            
+                            <!-- The Interactive Plan SVG Grid -->
+                            <div class="w-full max-w-4xl mx-auto overflow-x-auto py-4">
+                                <svg class="w-full min-w-[700px] h-64" viewBox="0 0 800 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Central Hallway (Circulation) -->
+                                    <rect id="svg-hallway" onclick="selectZone('hallway')" class="cursor-pointer transition-all hover:opacity-80" x="180" y="95" width="440" height="60" fill="#ef4444" fill-opacity="0.25" stroke="#ef4444" stroke-width="2"/>
+                                    <text x="400" y="130" fill="#ffffff" font-size="12" font-family="monospace" text-anchor="middle" font-weight="bold" pointer-events="none">HALLWAY / CORRIDOR</text>
+
+                                    <!-- Core Left (Foyer/Lifts) -->
+                                    <rect id="svg-core-left" onclick="selectZone('core-left')" class="cursor-pointer transition-all hover:opacity-80" x="50" y="45" width="130" height="160" fill="#10b981" fill-opacity="0.25" stroke="#10b981" stroke-width="2"/>
+                                    <text x="115" y="115" fill="#ffffff" font-size="11" font-family="monospace" text-anchor="middle" font-weight="bold" pointer-events="none">FOYER &amp; LIFTS (MAIN CORE)</text>
+
+                                    <!-- Stairs Right -->
+                                    <rect id="svg-stairs" onclick="selectZone('stairs')" class="cursor-pointer transition-all hover:opacity-80" x="620" y="45" width="130" height="160" fill="#f43f5e" fill-opacity="0.25" stroke="#f43f5e" stroke-width="2"/>
+                                    <text x="685" y="115" fill="#ffffff" font-size="11" font-family="monospace" text-anchor="middle" font-weight="bold" pointer-events="none">STAIRS &amp; SECONDARY LIFT</text>
+
+                                    <!-- One Bedroom Unit Top 1 (Left to Right) -->
+                                    <rect id="svg-1bed-t1" onclick="selectZone('1bed')" class="cursor-pointer transition-all hover:opacity-80" x="195" y="5" width="80" height="85" fill="#3b82f6" fill-opacity="0.25" stroke="#3b82f6" stroke-width="1.5"/>
+                                    <text x="235" y="50" fill="#ffffff" font-size="9" font-family="monospace" text-anchor="middle" pointer-events="none">1-BR [U1]</text>
+
+                                    <!-- One Bedroom Unit Top 2 -->
+                                    <rect id="svg-1bed-t2" onclick="selectZone('1bed')" class="cursor-pointer transition-all hover:opacity-80" x="285" y="5" width="80" height="85" fill="#3b82f6" fill-opacity="0.25" stroke="#3b82f6" stroke-width="1.5"/>
+                                    <text x="325" y="50" fill="#ffffff" font-size="9" font-family="monospace" text-anchor="middle" pointer-events="none">1-BR [U2]</text>
+
+                                    <!-- One Bedroom Unit Top 3 -->
+                                    <rect id="svg-1bed-t3" onclick="selectZone('1bed')" class="cursor-pointer transition-all hover:opacity-80" x="375" y="5" width="80" height="85" fill="#3b82f6" fill-opacity="0.25" stroke="#3b82f6" stroke-width="1.5"/>
+                                    <text x="415" y="50" fill="#ffffff" font-size="9" font-family="monospace" text-anchor="middle" pointer-events="none">1-BR [U3]</text>
+
+                                    <!-- Bachelor Top Right -->
+                                    <rect id="svg-bach-t" onclick="selectZone('bachelor')" class="cursor-pointer transition-all hover:opacity-80" x="465" y="5" width="80" height="85" fill="#06b6d4" fill-opacity="0.25" stroke="#06b6d4" stroke-width="1.5"/>
+                                    <text x="505" y="50" fill="#ffffff" font-size="9" font-family="monospace" text-anchor="middle" pointer-events="none">BACHELOR [B1]</text>
+
+                                    <!-- Bachelor Bottom Left -->
+                                    <rect id="svg-bach-b" onclick="selectZone('bachelor')" class="cursor-pointer transition-all hover:opacity-80" x="255" y="160" width="80" height="85" fill="#06b6d4" fill-opacity="0.25" stroke="#06b6d4" stroke-width="1.5"/>
+                                    <text x="295" y="205" fill="#ffffff" font-size="9" font-family="monospace" text-anchor="middle" pointer-events="none">BACHELOR [B2]</text>
+
+                                    <!-- One Bedroom Unit Bottom 1 -->
+                                    <rect id="svg-1bed-b1" onclick="selectZone('1bed')" class="cursor-pointer transition-all hover:opacity-80" x="345" y="160" width="80" height="85" fill="#3b82f6" fill-opacity="0.25" stroke="#3b82f6" stroke-width="1.5"/>
+                                    <text x="385" y="205" fill="#ffffff" font-size="9" font-family="monospace" text-anchor="middle" pointer-events="none">1-BR [U4]</text>
+
+                                    <!-- One Bedroom Unit Bottom 2 -->
+                                    <rect id="svg-1bed-b2" onclick="selectZone('1bed')" class="cursor-pointer transition-all hover:opacity-80" x="435" y="160" width="80" height="85" fill="#3b82f6" fill-opacity="0.25" stroke="#3b82f6" stroke-width="1.5"/>
+                                    <text x="475" y="205" fill="#ffffff" font-size="9" font-family="monospace" text-anchor="middle" pointer-events="none">1-BR [U5]</text>
+
+                                    <!-- One Bedroom Unit Bottom 3 -->
+                                    <rect id="svg-1bed-b3" onclick="selectZone('1bed')" class="cursor-pointer transition-all hover:opacity-80" x="525" y="160" width="80" height="85" fill="#3b82f6" fill-opacity="0.25" stroke="#3b82f6" stroke-width="1.5"/>
+                                    <text x="565" y="205" fill="#ffffff" font-size="9" font-family="monospace" text-anchor="middle" pointer-events="none">1-BR [U6]</text>
+                                </svg>
+                            </div>
+                            <div class="flex items-center justify-between text-[11px] text-slate-500 font-mono pt-2 border-t border-slate-900">
+                                <span>COORDINATED BOUNDARY GRIDS: ISO-MOD COUPLINGS</span>
+                                <span>* CHOOSE A SEGMENT FOR LIVE PARAMETER DATA *</span>
+                            </div>
+                        </div>
+
+                        <!-- ECHELON.jpg Full typical Floorplan panel view -->
+                        <div id="ch3-sheet-container" class="hidden bg-slate-950 border border-slate-800 rounded-xl overflow-hidden relative min-h-[400px]">
+                            <img src="ECHELON.jpg" alt="Typical Coordinated Building Floorplan Sheet" class="w-full h-full object-contain mx-auto" onerror="this.src='https://placehold.co/900x500/1e293b/94a3b8?text=ECHELON.jpg'">
+                        </div>
+
+                        <!-- Console Details Output Display -->
+                        <div id="zone-details-card" class="bg-slate-950 border border-slate-800 rounded-xl p-6 relative">
+                            <h4 id="zone-title" class="text-lg font-bold text-slate-200 flex items-center gap-2">
+                                <span class="h-3 w-3 rounded bg-blue-500"></span> 1-Bedroom Residential Apartment
+                            </h4>
+                            <p id="zone-narrative" class="text-sm text-slate-400 mt-2 leading-relaxed">
+                                Dual container configuration combining living and structural spaces. Fully insulated, featuring pre-assembled back-to-back sanitary wet cores mapped directly along structural pathways to maximize floor efficiency.
+                            </p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 mt-6 border-t border-slate-900">
+                                <div>
+                                    <span class="text-[10px] font-mono text-slate-500 uppercase">Acoustic Containment</span>
+                                    <div id="zone-acoustic" class="text-sm font-semibold text-slate-300 mt-1">STC 55 (Enhanced Sound Gaskets)</div>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-mono text-slate-500 uppercase">Mechanical Isolation</span>
+                                    <div id="zone-mechanical" class="text-sm font-semibold text-slate-300 mt-1">Direct Drop connection with core</div>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-mono text-slate-500 uppercase">Pre-Fab Level</span>
+                                    <div id="zone-prefab" class="text-sm font-semibold text-slate-300 mt-1">95% (Completed in Factory)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- CHAPTER 4: 1-BR UNIT & SECTION EXPLORER -->
+                <section id="chapter4" class="space-y-6 hidden">
+                    <div class="border-l-4 border-blue-500 pl-4 space-y-1">
+                        <h3 class="text-2xl font-extrabold tracking-tight text-slate-100">04. 1-BR Unit & Section Explorer</h3>
+                        <p class="text-xs text-slate-400 uppercase font-mono tracking-widest font-semibold">Real-Time Interactive Drafting & BIM Coordination Space</p>
+                    </div>
+
+                    <p class="text-sm text-slate-300">
+                        Explore the structural plan <strong>floorplan-TYP.jpg</strong>. Hover and click highlighted section cut lines directly on the drawing, or toggle specific tools to manipulate, scale, measure, and inspect our coordinated sub-sheet documents: <strong>section A-A1.jpg</strong>, <strong>section A-A2.jpg</strong>, <strong>section A-A3.jpg</strong>, <strong>section B-B1.jpg</strong>, and <strong>section B-B2.jpg</strong>.
+                    </p>
+
+                    <!-- Real-Time Interactive Draft-Room -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 md:p-6 space-y-6">
+                        
+                        <!-- Control Strip for Viewports -->
+                        <div class="flex flex-wrap items-center justify-between gap-4 p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="text-xs font-mono text-slate-400 font-semibold mr-2 flex items-center gap-1">
+                                    <i class="fa-solid fa-wrench text-blue-400"></i> TOOLS:
+                                </span>
+                                <button onclick="toggleBlueprintMode()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded text-xs font-mono flex items-center gap-1.5 text-slate-300 transition-colors">
+                                    <i class="fa-solid fa-circle-half-stroke text-blue-400"></i> Blueprint Mode
+                                </button>
+                                <button onclick="toggleRulerTool()" id="ruler-btn" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded text-xs font-mono flex items-center gap-1.5 text-slate-300 transition-colors">
+                                    <i class="fa-solid fa-ruler-horizontal text-emerald-400"></i> Measure Tool
+                                </button>
+                                <button onclick="toggleIsometricReference()" id="iso-ref-btn" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded text-xs font-mono flex items-center gap-1.5 text-slate-300 transition-colors">
+                                    <i class="fa-solid fa-cubes text-purple-400"></i> Iso Blueprint Reference
+                                </button>
+                                <button onclick="resetViews()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded text-xs font-mono flex items-center gap-1.5 text-slate-300 transition-colors">
+                                    <i class="fa-solid fa-arrows-rotate text-cyan-400"></i> Reset Zoom
+                                </button>
+                            </div>
+                            <!-- active section display badge -->
+                            <div class="text-xs font-mono">
+                                ACTIVE SPEC SHEET: <span id="active-sheet-badge" class="px-2 py-1 bg-red-500/10 text-red-400 border border-red-500/20 rounded font-bold">floorplan-TYP.jpg</span>
+                            </div>
+                        </div>
+
+                        <!-- Real-time Multi-Viewport Layout -->
+                        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                            
+                            <!-- LEFT VIEWPORT: Interactive Floorplan Workspace -->
+                            <div class="flex flex-col space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+                                        <span class="h-2 w-2 rounded-full bg-blue-500 animate-pulse"></span>
+                                        VIEWPORT 1: LAYOUT PLAN VIEW
+                                    </span>
+                                    <span class="text-[10px] font-mono text-slate-500">floorplan-TYP.jpg</span>
+                                </div>
+                                
+                                <!-- Floorplan Wrapper with Pan & Zoom capabilities -->
+                                <div class="relative h-[480px] bg-slate-950 border border-slate-800 rounded-xl overflow-hidden cursor-crosshair" id="viewport-plan-container">
+                                    
+                                    <!-- Coordinate Measuring overlay info -->
+                                    <div id="ruler-info-panel" class="absolute top-3 left-3 z-30 bg-slate-900/90 border border-slate-800 p-2.5 rounded shadow-lg text-xs font-mono text-slate-300 hidden">
+                                        <div class="text-emerald-400 font-bold mb-1"><i class="fa-solid fa-ruler-combined"></i> Ruler Active</div>
+                                        <div>P1: <span id="p1-coord">-</span></div>
+                                        <div>P2: <span id="p2-coord">-</span></div>
+                                        <div class="mt-1 pt-1 border-t border-slate-800 text-slate-100">Calculated Span: <span id="ruler-span" class="text-yellow-400 font-bold">0.00 m</span></div>
+                                    </div>
+
+                                    <!-- Pan/Zoomable Target Content -->
+                                    <div id="pan-zoom-plan" class="absolute inset-0 origin-top-left transition-transform duration-75 select-none" style="transform: translate(0px, 0px) scale(1);">
+                                        
+                                        <!-- Floorplan Image (Retracing floorplan-TYP.jpg) -->
+                                        <img src="floorplan-TYP.jpg" id="img-floorplan" alt="Typical floor plan" class="w-full h-full object-contain pointer-events-none" onerror="this.src='https://placehold.co/600x900/1e293b/94a3b8?text=floorplan-TYP.jpg'">
+                                        
+                                        <!-- Interactive SVG Vector Hotspots mapped over image boundaries -->
+                                        <svg viewBox="0 0 100 100" class="absolute inset-0 w-full h-full pointer-events-none select-none z-10" preserveAspectRatio="none">
+                                            
+                                            <!-- Section A-A1 Marker Line -->
+                                            <g class="pointer-events-auto cursor-pointer group" onclick="loadAecSection('A-A1')">
+                                                <line x1="5" y1="71.5" x2="95" y2="71.5" stroke="#ef4444" stroke-width="1" stroke-dasharray="1 1.5" class="group-hover:stroke-yellow-400 group-hover:stroke-[2] transition-all"/>
+                                                <rect x="73" y="69.5" width="22" height="4" fill="#0f172a" stroke="#ef4444" stroke-width="0.5" rx="1" class="group-hover:stroke-yellow-400 transition-all"/>
+                                                <text x="84" y="72.5" fill="#ef4444" font-size="2" font-family="monospace" text-anchor="middle" font-weight="bold" class="group-hover:fill-yellow-400 font-bold select-none pointer-events-none">SECTION A-A1</text>
+                                            </g>
+
+                                            <!-- Section A-A2 Marker Line -->
+                                            <g class="pointer-events-auto cursor-pointer group" onclick="loadAecSection('A-A2')">
+                                                <line x1="5" y1="60.5" x2="95" y2="60.5" stroke="#ef4444" stroke-width="1" stroke-dasharray="1 1.5" class="group-hover:stroke-yellow-400 group-hover:stroke-[2] transition-all"/>
+                                                <rect x="73" y="58.5" width="22" height="4" fill="#0f172a" stroke="#ef4444" stroke-width="0.5" rx="1" class="group-hover:stroke-yellow-400 transition-all"/>
+                                                <text x="84" y="61.5" fill="#ef4444" font-size="2" font-family="monospace" text-anchor="middle" font-weight="bold" class="group-hover:fill-yellow-400 font-bold select-none pointer-events-none">SECTION A-A2</text>
+                                            </g>
+
+                                            <!-- Section A-A3 Marker Line -->
+                                            <g class="pointer-events-auto cursor-pointer group" onclick="loadAecSection('A-A3')">
+                                                <line x1="5" y1="32.5" x2="95" y2="32.5" stroke="#ef4444" stroke-width="1" stroke-dasharray="1 1.5" class="group-hover:stroke-yellow-400 group-hover:stroke-[2] transition-all"/>
+                                                <rect x="73" y="30.5" width="22" height="4" fill="#0f172a" stroke="#ef4444" stroke-width="0.5" rx="1" class="group-hover:stroke-yellow-400 transition-all"/>
+                                                <text x="84" y="33.5" fill="#ef4444" font-size="2" font-family="monospace" text-anchor="middle" font-weight="bold" class="group-hover:fill-yellow-400 font-bold select-none pointer-events-none">SECTION A-A3</text>
+                                            </g>
+
+                                            <!-- Section B-B1 Marker Line -->
+                                            <g class="pointer-events-auto cursor-pointer group" onclick="loadAecSection('B-B1')">
+                                                <line x1="45" y1="5" x2="45" y2="95" stroke="#3b82f6" stroke-width="0.7" stroke-dasharray="1 1.5" class="group-hover:stroke-yellow-400 group-hover:stroke-[1.5] transition-all"/>
+                                                <rect x="36" y="91" width="18" height="4" fill="#0f172a" stroke="#3b82f6" stroke-width="0.5" rx="1" class="group-hover:stroke-yellow-400 transition-all"/>
+                                                <text x="45" y="94" fill="#3b82f6" font-size="2.2" font-family="monospace" text-anchor="middle" font-weight="bold" class="group-hover:fill-yellow-400 font-bold select-none pointer-events-none">SEC B-B1</text>
+                                            </g>
+
+                                            <!-- Section B-B2 Marker Line -->
+                                            <g class="pointer-events-auto cursor-pointer group" onclick="loadAecSection('B-B2')">
+                                                <line x1="53" y1="5" x2="53" y2="95" stroke="#3b82f6" stroke-width="0.7" stroke-dasharray="1 1.5" class="group-hover:stroke-yellow-400 group-hover:stroke-[1.5] transition-all"/>
+                                                <rect x="54" y="91" width="18" height="4" fill="#0f172a" stroke="#3b82f6" stroke-width="0.5" rx="1" class="group-hover:stroke-yellow-400 transition-all"/>
+                                                <text x="63" y="94" fill="#3b82f6" font-size="2.2" font-family="monospace" text-anchor="middle" font-weight="bold" class="group-hover:fill-yellow-400 font-bold select-none pointer-events-none">SEC B-B2</text>
+                                            </g>
+
+                                        </svg>
+
+                                        <!-- Ruler Measure Overlay Canvas -->
+                                        <canvas id="ruler-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-20"></canvas>
+                                    </div>
+                                    
+                                    <!-- Blueprint Grid Helper Panel Overlay -->
+                                    <div class="absolute bottom-3 left-3 z-30 flex items-center gap-1.5 bg-slate-900/80 p-2 rounded border border-slate-800 text-[10px] font-mono text-slate-400 pointer-events-none">
+                                        <i class="fa-solid fa-gamepad text-blue-400"></i> Mouse Drag to Pan / Scroll wheel to Zoom
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- RIGHT VIEWPORT: Interactive Sectional Spec Workspace -->
+                            <div class="flex flex-col space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+                                        <span id="section-status-dot" class="h-2 w-2 rounded-full bg-red-500 animate-pulse"></span>
+                                        VIEWPORT 2: CROSS-SECTION PROFILE ELEVATION
+                                    </span>
+                                    <span class="text-[10px] font-mono text-slate-500" id="section-label-filename">section A-A1.jpg</span>
+                                </div>
+                                
+                                <!-- Sectional Wrapper with Pan & Zoom capabilities -->
+                                <div class="relative h-[480px] bg-slate-950 border border-slate-800 rounded-xl overflow-hidden cursor-grab" id="viewport-section-container">
+                                    
+                                    <!-- Pan/Zoomable Section Target Content -->
+                                    <div id="pan-zoom-section" class="absolute inset-0 origin-top-left transition-transform duration-75 select-none" style="transform: translate(0px, 0px) scale(1);">
+                                        
+                                        <!-- Dynamic Section Image (Loads A-A1, A-A2, A-A3, B-B1, B-B2 based on selected hotspot) -->
+                                        <img src="section%20A-A1.jpg" id="img-section-view" alt="AEC Section View" class="w-full h-full object-contain pointer-events-none" onerror="this.src='https://placehold.co/900x600/1e293b/94a3b8?text=section+A-A1.jpg'">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- ECHELON-SCHEMATICS1.jpg Collapsible Drawer Reference Area -->
+                        <div id="iso-reference-drawer" class="hidden border border-purple-500/20 bg-purple-950/5 p-4 rounded-xl space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-mono text-purple-400 font-bold flex items-center gap-1.5">
+                                    <i class="fa-solid fa-cubes"></i> ISO UNIT MULTI-DRAWINGS MATRIX
+                                </span>
+                                <span class="text-[10px] font-mono text-slate-500">ECHELON-SCHEMATICS1.jpg</span>
+                            </div>
+                            <div class="border border-slate-800 rounded-lg overflow-hidden bg-slate-950">
+                                <img src="ECHELON-SCHEMATICS1.jpg" alt="Echelon Isometric Drawing Sets" class="w-full max-h-[300px] object-contain mx-auto" onerror="this.src='https://placehold.co/900x400/1e293b/94a3b8?text=ECHELON-SCHEMATICS1.jpg'">
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Technical Spec Window -->
+                        <div id="section-specs-panel" class="bg-slate-950 border border-slate-800 rounded-xl p-6">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+                                <div>
+                                    <div class="text-[10px] font-mono text-blue-500 uppercase font-bold tracking-wider">SHEET DETAILS COORDINATION</div>
+                                    <h4 id="active-spec-title" class="text-lg font-bold text-slate-100 font-mono mt-0.5">Section A-A1 @ Kitchen, Ent. Hall and Bathroom</h4>
+                                </div>
+                                <div class="flex gap-2">
+                                    <button onclick="loadAecSection('A-A1')" class="px-2 py-1 bg-slate-900 hover:bg-slate-800 rounded text-[11px] font-mono text-slate-300 border border-slate-800 transition-colors">A-A1</button>
+                                    <button onclick="loadAecSection('A-A2')" class="px-2 py-1 bg-slate-900 hover:bg-slate-800 rounded text-[11px] font-mono text-slate-300 border border-slate-800 transition-colors">A-A2</button>
+                                    <button onclick="loadAecSection('A-A3')" class="px-2 py-1 bg-slate-900 hover:bg-slate-800 rounded text-[11px] font-mono text-slate-300 border border-slate-800 transition-colors">A-A3</button>
+                                    <button onclick="loadAecSection('B-B1')" class="px-2 py-1 bg-slate-900 hover:bg-slate-800 rounded text-[11px] font-mono text-slate-300 border border-slate-800 transition-colors">B-B1</button>
+                                    <button onclick="loadAecSection('B-B2')" class="px-2 py-1 bg-slate-900 hover:bg-slate-800 rounded text-[11px] font-mono text-slate-300 border border-slate-800 transition-colors">B-B2</button>
+                                </div>
+                            </div>
+                            
+                            <p id="active-spec-narrative" class="text-xs text-slate-400 mt-4 leading-relaxed">
+                                Detailed sectional layout indicating back-to-back sanitary wet wall alignments between the premium modular bathroom enclosure and the kitchen space. Fully details the double plumbing drops routing waste lines down into basement service cavities.
+                            </p>
+
+                            <!-- BIM Keynotes checklist -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                                <div class="bg-slate-900/60 p-4 rounded-lg border border-slate-800/80 space-y-2">
+                                    <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider font-bold">Structural Assembly Parameters</span>
+                                    <ul id="spec-list-structural" class="text-xs text-slate-300 space-y-1">
+                                        <li><i class="fa-solid fa-circle text-[6px] text-blue-400 mr-2"></i>Double plumbing dry-cavity partition width: 300mm</li>
+                                        <li><i class="fa-solid fa-circle text-[6px] text-blue-400 mr-2"></i>HSS structural floor-plates sister retrofits</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-slate-900/60 p-4 rounded-lg border border-slate-800/80 space-y-2">
+                                    <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider font-bold">MEP Coordination Requirements</span>
+                                    <ul id="spec-list-mep" class="text-xs text-slate-300 space-y-1">
+                                        <li><i class="fa-solid fa-circle text-[6px] text-emerald-400 mr-2"></i>Plumbing Wall sanitary lines pre-insulated</li>
+                                        <li><i class="fa-solid fa-circle text-[6px] text-emerald-400 mr-2"></i>Corridor ceiling plenum duct linkages</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- CHAPTER 5: PRE-FAB & ASSEMBLY WORKFLOWS -->
+                <section id="chapter5" class="space-y-6 hidden">
+                    <div class="border-l-4 border-blue-500 pl-4 space-y-1">
+                        <h3 class="text-2xl font-extrabold tracking-tight text-slate-100">05. Pre-Fab & Assembly Workflows</h3>
+                        <p class="text-xs text-slate-400 uppercase font-mono tracking-widest font-semibold">Logistics & Erection Procedures</p>
+                    </div>
+
+                    <p class="text-sm text-slate-300">
+                        Modular volumetric construction succeeds when sequence planning is robust. This guide breaks down the off-site and on-site alignment procedures.
+                    </p>
+
+                    <!-- Steps Container -->
+                    <div class="space-y-4">
+                        <div class="p-5 bg-slate-900 border border-slate-800 rounded-xl flex gap-4 items-start">
+                            <span class="h-8 w-8 rounded-full bg-blue-500/10 text-blue-400 font-mono text-sm font-bold flex items-center justify-center shrink-0 border border-blue-500/20">01</span>
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-200">Factory Frame Preparation & Structural Modifications</h4>
+                                <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                                    Standard 40ft High-Cube steel container templates are modified. Side wall spans are cut according to layout designs, and heavy-duty structural steel headers are welded to transfer mechanical loads to corner castings.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-5 bg-slate-900 border border-slate-800 rounded-xl flex gap-4 items-start">
+                            <span class="h-8 w-8 rounded-full bg-blue-500/10 text-blue-400 font-mono text-sm font-bold flex items-center justify-center shrink-0 border border-blue-500/20">02</span>
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-200">Volumetric Framing, Rough-Ins & Core Shell Envelope</h4>
+                                <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                                    Framing is installed alongside complete mechanical, electrical, and plumbing (MEP) rough-ins. In alignment with <strong>section A-A1.jpg</strong>, wet wall systems are pressure tested before closed-cell spray insulation is applied to prevent thermal bridging.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-5 bg-slate-900 border border-slate-800 rounded-xl flex gap-4 items-start">
+                            <span class="h-8 w-8 rounded-full bg-blue-500/10 text-blue-400 font-mono text-sm font-bold flex items-center justify-center shrink-0 border border-blue-500/20">03</span>
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-200">Ground-Floor Podium & Core Erection</h4>
+                                <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                                    Simultaneously, the on-site team pours foundations and constructs the ground floor podium and vertical circulation core. Heavy structural steel is placed to receive the incoming modular building blocks.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-5 bg-slate-900 border border-slate-800 rounded-xl flex gap-4 items-start">
+                            <span class="h-8 w-8 rounded-full bg-blue-500/10 text-blue-400 font-mono text-sm font-bold flex items-center justify-center shrink-0 border border-blue-500/20">04</span>
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-200">The "Flying Phase": Unit Craning & Envelope Closure</h4>
+                                <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                                    Using heavy-duty crawler cranes, individual units are lifted and placed into position. Twist-locks join corners securely, and site utility connections are made in the corridor spaces.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CHAPTER 6: SPECIFICATIONS & MATERIAL TAKEOFF -->
+                <section id="chapter6" class="space-y-6 hidden">
+                    <div class="border-l-4 border-blue-500 pl-4 space-y-1">
+                        <h3 class="text-2xl font-extrabold tracking-tight text-slate-100">06. Spec & Material Takeoff</h3>
+                        <p class="text-xs text-slate-400 uppercase font-mono tracking-widest font-semibold">BIM Dynamic Cost Calculation Tools</p>
+                    </div>
+
+                    <p class="text-sm text-slate-300">
+                        Adjust building design variables (number of levels or overall width multiplier) to update the dynamic Quantity Surveyor (QS) takeoff estimates below.
+                    </p>
+
+                    <!-- Interactive QS takeoff Panel -->
+                    <div class="p-6 bg-slate-900 border border-slate-800 rounded-xl space-y-6">
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-6 border-b border-slate-800">
+                            <div>
+                                <label class="block text-xs font-bold font-mono text-slate-400 uppercase tracking-wider mb-2">Number of Stories (Levels)</label>
+                                <input type="range" id="input-stories" min="2" max="8" value="4" oninput="updateCalculators()" class="w-full bg-slate-950 accent-blue-500 h-2 rounded-lg cursor-pointer">
+                                <div class="flex justify-between text-xs font-mono text-slate-500 mt-2">
+                                    <span>Min: 2</span>
+                                    <span class="text-blue-400 font-bold" id="label-stories">4 Levels</span>
+                                    <span>Max: 8</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold font-mono text-slate-400 uppercase tracking-wider mb-2">Facade Glazing Ratio (%)</label>
+                                <input type="range" id="input-glazing" min="40" max="90" value="70" oninput="updateCalculators()" class="w-full bg-slate-950 accent-cyan-500 h-2 rounded-lg cursor-pointer">
+                                <div class="flex justify-between text-xs font-mono text-slate-500 mt-2">
+                                    <span>Min: 40%</span>
+                                    <span class="text-cyan-400 font-bold" id="label-glazing">70% Glass Coverage</span>
+                                    <span>Max: 90%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Calculations Output Grid -->
+                        <div class="space-y-4">
+                            <h4 class="text-xs font-bold font-mono uppercase text-slate-400 tracking-wider">Estimated Material quantities (QS Takeoff)</h4>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="p-4 bg-slate-950 rounded-xl border border-slate-800">
+                                    <span class="text-[10px] font-mono text-slate-500 uppercase">ISO Mod Units Required</span>
+                                    <div id="out-iso" class="text-2xl font-black text-slate-200 mt-1">72 Modules</div>
+                                    <p class="text-[10px] text-slate-400 mt-1">Calculated based on floor plan layouts.</p>
+                                </div>
+
+                                <div class="p-4 bg-slate-950 rounded-xl border border-slate-800">
+                                    <span class="text-[10px] font-mono text-slate-500 uppercase">ACM Cladding Panels</span>
+                                    <div id="out-acm" class="text-2xl font-black text-slate-200 mt-1">15,800 SQFT</div>
+                                    <p class="text-[10px] text-slate-400 mt-1">Clear anodized panel systems.</p>
+                                </div>
+
+                                <div class="p-4 bg-slate-950 rounded-xl border border-slate-800">
+                                    <span class="text-[10px] font-mono text-slate-500 uppercase">Fenestration / Glass Area</span>
+                                    <div id="out-glass" class="text-2xl font-black text-slate-200 mt-1">12,600 SQFT</div>
+                                    <p class="text-[10px] text-slate-400 mt-1">Floor-to-ceiling double low-E glazing.</p>
+                                </div>
+                            </div>
+
+                            <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 flex justify-between items-center">
+                                <div>
+                                    <span class="text-[10px] font-mono text-slate-500 uppercase">Class-D Pre-Construction Estimation</span>
+                                    <div id="out-cost" class="text-xl font-bold text-emerald-400 mt-1">$4,820,000 USD</div>
+                                </div>
+                                <span class="text-xs font-mono text-slate-500">± 15% Contingency Margin</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- PERMIT SET COLLAPSIBLE DOCUMENTS MATRIX -->
+                <div class="border-t border-slate-800 pt-10">
+                    <h4 class="text-sm font-bold tracking-widest uppercase font-mono text-slate-400 mb-6">Permit Set & Code Documents Reference Directory</h4>
+                    
+                    <div class="space-y-3">
+                        <div class="border border-slate-800 rounded-xl overflow-hidden bg-slate-900/40">
+                            <button onclick="togglePermitRow('matrix-g')" class="w-full flex items-center justify-between px-6 py-4 hover:bg-slate-800/40 transition-colors text-left">
+                                <span class="font-mono text-xs font-bold text-slate-300">Volume 1: General &amp; Architectural Sheets</span>
+                                <i id="icon-matrix-g" class="fa-solid fa-chevron-down text-xs text-slate-500"></i>
+                            </button>
+                            <div id="matrix-g" class="border-t border-slate-800 hidden bg-slate-950/80 p-6 space-y-4 text-xs text-slate-400">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="p-3 bg-slate-900 rounded border border-slate-800">
+                                        <div class="font-mono text-slate-300 font-bold">[G-000] COVER SHEET &amp; DRAWING INDEX</div>
+                                        <p class="mt-1">Includes primary rendered aesthetics from <strong>echelon facade.jpg</strong> as visual references for code compliance reviews.</p>
+                                    </div>
+                                    <div class="p-3 bg-slate-900 rounded border border-slate-800">
+                                        <div class="font-mono text-slate-300 font-bold">[G-001] LIFE SAFETY PLANS &amp; CALCULATIONS</div>
+                                        <p class="mt-1">Fire separations along central corridors and path-of-travel limits directly back into exit stair shafts.</p>
+                                    </div>
+                                    <div class="p-3 bg-slate-900 rounded border border-slate-800">
+                                        <div class="font-mono text-slate-300 font-bold">[A-100] SITE DEVELOPMENT PLAN</div>
+                                        <p class="mt-1">Indicates primary and secondary core massing lines alongside structural set-backs.</p>
+                                    </div>
+                                    <div class="p-3 bg-slate-900 rounded border border-slate-800">
+                                        <div class="font-mono text-slate-300 font-bold">[A-201] TYPICAL RESIDENTIAL LAYOUTS</div>
+                                        <p class="mt-1">Documents the 8-unit 1-BR layout and bachelor endpoints as structured in <strong>ECHELON.jpg</strong>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border border-slate-800 rounded-xl overflow-hidden bg-slate-900/40">
+                            <button onclick="togglePermitRow('matrix-e')" class="w-full flex items-center justify-between px-6 py-4 hover:bg-slate-800/40 transition-colors text-left">
+                                <span class="font-mono text-xs font-bold text-slate-300">Volume 2: Engineering Coordination Sheets</span>
+                                <i id="icon-matrix-e" class="fa-solid fa-chevron-down text-xs text-slate-500"></i>
+                            </button>
+                            <div id="matrix-e" class="border-t border-slate-800 hidden bg-slate-950/80 p-6 space-y-4 text-xs text-slate-400">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="p-3 bg-slate-900 rounded border border-slate-800">
+                                        <div class="font-mono text-slate-300 font-bold">[S-100 Series] STRUCTURAL LOAD CALCULATIONS</div>
+                                        <p class="mt-1">Seismic and high wind loading analyses. Outlines the HSS column and overhead beam structural calculations.</p>
+                                    </div>
+                                    <div class="p-3 bg-slate-900 rounded border border-slate-800">
+                                        <div class="font-mono text-slate-300 font-bold">[M-100 Series] MECHANICAL SYSTEM LAYOUTS</div>
+                                        <p class="mt-1">Outlines VRF system runs and fresh air routing within drop-ceiling plenums inside the hallway.</p>
+                                    </div>
+                                    <div class="p-3 bg-slate-900 rounded border border-slate-800">
+                                        <div class="font-mono text-slate-300 font-bold">[P-100 Series] SANITARY &amp; WATER SUPPLY DISTRIBUTIONS</div>
+                                        <p class="mt-1">Plumbing void (plenum) layouts detailing structural connections as derived from Section A-A1 in <strong>section A-A1.jpg</strong>.</p>
+                                    </div>
+                                    <div class="p-3 bg-slate-900 rounded border border-slate-800">
+                                        <div class="font-mono text-slate-300 font-bold">[E-100 Series] ELECTRICAL SCHEMATICS &amp; MAIN BUS</div>
+                                        <p class="mt-1">Sizing criteria for modular panelboards and sub-distribution panels integrated inside primary mechanical shafts.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Navigation Control Footer -->
+            <footer class="h-16 border-t border-slate-800 bg-slate-900 px-8 flex items-center justify-between shrink-0 absolute bottom-0 inset-x-0 z-10">
+                <button onclick="navigateChapter('prev')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg border border-slate-700 transition-colors flex items-center gap-1.5">
+                    <i class="fa-solid fa-arrow-left"></i> Previous Chapter
+                </button>
+                <div class="text-xs font-mono text-slate-500">
+                    Showing Page <span id="footer-page-label">1</span> / 6
+                </div>
+                <button onclick="navigateChapter('next')" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold rounded-lg shadow-lg shadow-blue-500/20 transition-all flex items-center gap-1.5">
+                    Next Chapter <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- Print / Export Modal Representation (Clean overlay) -->
+    <div id="print-modal" class="fixed inset-0 bg-slate-950/90 z-50 flex items-center justify-center p-6 hidden">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-8 space-y-6">
+            <div class="flex items-center gap-3">
+                <div class="h-10 w-10 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20">
+                    <i class="fa-solid fa-file-pdf text-lg"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-200">Prepare AEC Specification Document</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">Generate print-ready construction drawing reference booklet.</p>
+                </div>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+                This utility consolidates all interactive schemas, engineering calculations, compartment parameters, and takeoff totals into a single standardized PDF file.
+            </p>
+            <div class="space-y-2">
+                <div class="flex justify-between items-center text-xs font-mono text-slate-400 p-2 bg-slate-950 rounded border border-slate-800">
+                    <span>File: EchelonMODULAR_Specs.pdf</span>
+                    <span class="text-blue-400 font-bold">12 MB</span>
+                </div>
+            </div>
+            <div class="flex gap-3 pt-2">
+                <button onclick="closePrintView()" class="flex-1 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-lg transition-colors">
+                    Close Window
+                </button>
+                <button onclick="window.print()" class="flex-1 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold rounded-lg transition-colors shadow-lg shadow-emerald-500/20">
+                    Confirm Print
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Logic Scripts -->
+    <script>
+        // Set chapters arrays
+        const chapters = ['chapter1', 'chapter2', 'chapter3', 'chapter4', 'chapter5', 'chapter6'];
+        const chapterTitles = {
+            'chapter1': 'Spatial & Architectural Massing',
+            'chapter2': 'Structural Engineering Logic',
+            'chapter3': 'Interactive Floor Plate Analysis',
+            'chapter4': '1-BR Unit & Section Explorer',
+            'chapter5': 'Pre-Fab & Assembly Workflows',
+            'chapter6': 'Spec & Material Takeoff'
+        };
+        let currentChapterIdx = 0;
+
+        // Switch Chapter Event Handler
+        function switchChapter(chapterId) {
+            currentChapterIdx = chapters.indexOf(chapterId);
+            
+            chapters.forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+                const navBtn = document.getElementById(`nav-${id}`);
+                navBtn.className = "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-xs font-medium text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all border border-transparent";
+                navBtn.querySelector('span:first-child').className = "font-mono text-slate-500";
+            });
+
+            document.getElementById(chapterId).classList.remove('hidden');
+            
+            const activeNavBtn = document.getElementById(`nav-${chapterId}`);
+            activeNavBtn.className = "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left text-xs font-medium transition-all bg-blue-600/10 text-blue-400 border border-blue-500/20";
+            activeNavBtn.querySelector('span:first-child').className = "font-mono text-blue-500";
+
+            const pageNum = currentChapterIdx + 1;
+            document.getElementById('current-chapter-id').innerText = `CHAPTER 0${pageNum}`;
+            document.getElementById('current-chapter-title').innerText = chapterTitles[chapterId];
+            document.getElementById('footer-page-label').innerText = pageNum;
+
+            document.getElementById('content-container').scrollTop = 0;
+
+            // Trigger canvas resizing if switching into Chapter 4
+            if (chapterId === 'chapter4') {
+                setTimeout(initRulerCanvas, 100);
+            }
+        }
+
+        // Sequential Navigation Buttons
+        function navigateChapter(direction) {
+            if (direction === 'next') {
+                if (currentChapterIdx < chapters.length - 1) {
+                    currentChapterIdx++;
+                } else {
+                    currentChapterIdx = 0;
+                }
+            } else {
+                if (currentChapterIdx > 0) {
+                    currentChapterIdx--;
+                } else {
+                    currentChapterIdx = chapters.length - 1;
+                }
+            }
+            switchChapter(chapters[currentChapterIdx]);
+        }
+
+        // Chapter 1 Viewport View Switcher
+        function setCh1Viewport(viewMode) {
+            const btn3d = document.getElementById('btn-view-3d');
+            const btnRender = document.getElementById('btn-view-render');
+            const vp3d = document.getElementById('ch1-viewport-3d');
+            const vpRender = document.getElementById('ch1-viewport-render');
+            const badge = document.getElementById('ch1-viewport-badge');
+            const helper = document.getElementById('ch1-interactive-helper');
+
+            if (viewMode === '3d') {
+                btn3d.className = "px-2.5 py-1 text-[11px] font-mono font-bold rounded bg-blue-600 text-white transition-all";
+                btnRender.className = "px-2.5 py-1 text-[11px] font-mono rounded text-slate-400 hover:text-slate-200 transition-all";
+                vp3d.classList.remove('hidden');
+                vpRender.classList.add('hidden');
+                badge.innerHTML = `<span class="h-1.5 w-1.5 rounded-full bg-blue-400 animate-ping"></span> SKETCHFAB 3D ENGINE`;
+                helper.classList.remove('hidden');
+            } else {
+                btn3d.className = "px-2.5 py-1 text-[11px] font-mono rounded text-slate-400 hover:text-slate-200 transition-all";
+                btnRender.className = "px-2.5 py-1 text-[11px] font-mono font-bold rounded bg-blue-600 text-white transition-all";
+                vp3d.classList.add('hidden');
+                vpRender.classList.remove('hidden');
+                badge.innerHTML = `<span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span> CONCEPT RENDER PREVIEW`;
+                helper.classList.add('hidden');
+            }
+        }
+
+        // Chapter 3 Viewport View Switcher
+        function setCh3Viewport(viewMode) {
+            const btnExplorer = document.getElementById('btn-ch3-explorer');
+            const btnSheet = document.getElementById('btn-ch3-sheet');
+            const containerExplorer = document.getElementById('ch3-explorer-container');
+            const containerSheet = document.getElementById('ch3-sheet-container');
+
+            if (viewMode === 'explorer') {
+                btnExplorer.className = "px-3 py-1.5 text-xs font-mono font-bold rounded bg-blue-600 text-white transition-all";
+                btnSheet.className = "px-3 py-1.5 text-xs font-mono rounded text-slate-400 hover:text-slate-200 transition-all";
+                containerExplorer.classList.remove('hidden');
+                containerSheet.classList.add('hidden');
+            } else {
+                btnExplorer.className = "px-3 py-1.5 text-xs font-mono rounded text-slate-400 hover:text-slate-200 transition-all";
+                btnSheet.className = "px-3 py-1.5 text-xs font-mono font-bold rounded bg-blue-600 text-white transition-all";
+                containerExplorer.classList.add('hidden');
+                containerSheet.classList.remove('hidden');
+            }
+        }
+
+        // Chapter 4 Isometric Blueprint Reference Toggle
+        function toggleIsometricReference() {
+            const drawer = document.getElementById('iso-reference-drawer');
+            const btn = document.getElementById('iso-ref-btn');
+            if (drawer.classList.contains('hidden')) {
+                drawer.classList.remove('hidden');
+                btn.classList.add('bg-purple-600', 'text-white', 'border-purple-500');
+                btn.classList.remove('bg-slate-900', 'text-slate-300');
+            } else {
+                drawer.classList.add('hidden');
+                btn.classList.remove('bg-purple-600', 'text-white', 'border-purple-500');
+                btn.classList.add('bg-slate-900', 'text-slate-300');
+            }
+        }
+
+        // Chapter 3 Interactive Floor Plan Selector
+        const zoneData = {
+            '1bed': {
+                title: '1-Bedroom Residential Apartment',
+                narrative: 'Double-wide structural block housing full kitchen units, custom bathroom compartments, laundry spaces, and open active living dining scopes. Seams are joined via direct overhead column configurations to support optimal physical balance.',
+                acoustic: 'STC 55 (Enhanced Sound Gaskets)',
+                mechanical: 'Direct Drop connection with core',
+                prefab: '95% (Completed in Factory)'
+            },
+            'bachelor': {
+                title: 'Bachelor Residential Apartment',
+                narrative: 'Compact micro-living unit using a single container chassis. Merges living, bedroom, and kitchen utilities seamlessly. Positioned along vertical edge plates to maximize structure floorplans.',
+                acoustic: 'STC 52 (Double Wall Framing)',
+                mechanical: 'Central Plenum Routing',
+                prefab: '98% (Completed in Factory)'
+            },
+            'hallway': {
+                title: 'Central Hallway / Corridor Zone',
+                narrative: 'Primary horizontal walkway connecting all core nodes to individual apartments. Ceiling drops act as isolated high-volume avenues housing heavy distribution loops.',
+                acoustic: 'STC 60 (Acoustic Panels)',
+                mechanical: 'Primary HVAC Utility Conduit Tray',
+                prefab: '80% (Sub-Assemblies Pre-wired)'
+            },
+            'core-left': {
+                title: 'Primary Service & Utility Spine Core',
+                narrative: 'A detached mechanical and lift core structure containing dual high-speed elevators, central electrical wiring distributions, and hydraulic riser avenues.',
+                acoustic: 'STC 65 (Concrete Shaft Enclosure)',
+                mechanical: 'Main Building Risers & Elevators',
+                prefab: '40% (Structural Steel Erection)'
+            },
+            'stairs': {
+                title: 'Secondary Stairway & Egress Shaft',
+                narrative: 'Fire-isolated emergency escape stairs equipped with high structural protection enclosures and safety self-closing doors along all floor entries.',
+                acoustic: 'STC 60 (Structural Steel Stairs)',
+                mechanical: 'Emergency Ventilation Systems',
+                prefab: '50% (Prefab Steel Flights)'
+            }
+        };
+
+        function selectZone(zoneKey) {
+            const data = zoneData[zoneKey];
+            if (!data) return;
+
+            const svgIds = ['svg-hallway', 'svg-core-left', 'svg-stairs', 'svg-1bed-t1', 'svg-1bed-t2', 'svg-1bed-t3', 'svg-bach-t', 'svg-bach-b', 'svg-1bed-b1', 'svg-1bed-b2', 'svg-1bed-b3'];
+            svgIds.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.setAttribute('fill-opacity', '0.25');
+                    element.setAttribute('stroke-width', '1.5');
+                }
+            });
+
+            if (zoneKey === '1bed') {
+                ['svg-1bed-t1', 'svg-1bed-t2', 'svg-1bed-t3', 'svg-1bed-b1', 'svg-1bed-b2', 'svg-1bed-b3'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.setAttribute('fill-opacity', '0.6');
+                        el.setAttribute('stroke-width', '3');
+                    }
+                });
+            } else if (zoneKey === 'bachelor') {
+                ['svg-bach-t', 'svg-bach-b'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.setAttribute('fill-opacity', '0.6');
+                        el.setAttribute('stroke-width', '3');
+                    }
+                });
+            } else if (zoneKey === 'hallway') {
+                const el = document.getElementById('svg-hallway');
+                el.setAttribute('fill-opacity', '0.6');
+                el.setAttribute('stroke-width', '3');
+            } else if (zoneKey === 'core-left') {
+                const el = document.getElementById('svg-core-left');
+                el.setAttribute('fill-opacity', '0.6');
+                el.setAttribute('stroke-width', '3');
+            } else if (zoneKey === 'stairs') {
+                const el = document.getElementById('svg-stairs');
+                el.setAttribute('fill-opacity', '0.6');
+                el.setAttribute('stroke-width', '3');
+            }
+
+            document.getElementById('zone-title').innerHTML = `<span class="h-3 w-3 rounded ${zoneKey === '1bed' ? 'bg-blue-500' : zoneKey === 'bachelor' ? 'bg-cyan-500' : zoneKey === 'core-left' ? 'bg-emerald-500' : 'bg-rose-500'}"></span> ${data.title}`;
+            document.getElementById('zone-narrative').innerText = data.narrative;
+            document.getElementById('zone-acoustic').innerText = data.acoustic;
+            document.getElementById('zone-mechanical').innerText = data.mechanical;
+            document.getElementById('zone-prefab').innerText = data.prefab;
+        }
+
+        // Chapter 4: Live CAD & Coordinate Retracing Systems
+        const designSheetData = {
+            'A-A1': {
+                title: 'Section A-A1 @ Kitchen, Ent. Hall and Bathroom',
+                filename: 'section A-A1.jpg',
+                narrative: 'Traces direct back-to-back wet wall alignments between bathroom fixtures and kitchen sinks. Identifies vertical drops routing sanitary sewage down into integrated crawl spaces.',
+                structural: [
+                    'Wall Core plumbing cavity width: 300mm partition spacing',
+                    'Floor structure sister joist reinforcements: 100x50mm steel sections',
+                    'Integrated ceiling framing systems: Sound resilient channels'
+                ],
+                mep: [
+                    'Sanitary loop materials: Pre-insulated high-strength PVC pipes',
+                    'Exhaust air extraction ducts: Direct ceiling extraction route',
+                    'Water supply: Insulated PEX pathways embedded in cavity walls'
+                ]
+            },
+            'A-A2': {
+                title: 'Section A-A2 @ Living Room, Hall and Laundry Rm.',
+                filename: 'section A-A2.jpg',
+                narrative: 'Illustrates spatial relationships between general living areas and laundry closet. Details wall penetrations for clothes dryer exhaust vents and structural framing requirements.',
+                structural: [
+                    'Structural HSS columns: 150x150x6mm overhead structural lines',
+                    'Sub-floor assemblies: Acoustic soundproofing mats on floorboards',
+                    'Wall studs: Galvanized steel profiles with sound isolation dampening'
+                ],
+                mep: [
+                    'Dryer exhaust vent lines: Independent ceiling ducting outputs',
+                    'Electrical pathways: Metallic conduit channels running horizontally',
+                    'Laundry supply lines: Dedicated hot/cold shutoff valve access panels'
+                ]
+            },
+            'A-A3': {
+                title: 'Section A-A3 @ Bedroom and Dining Rm.',
+                filename: 'section A-A3.jpg',
+                narrative: 'Depicts spatial boundary partitions between bedroom and active dining spaces. Outlines built-in closet framing layouts and corridor door clearances.',
+                structural: [
+                    'Closet structural framing: Light-gauge steel studs (50mm)',
+                    'Slab-to-deck clearances: 2700mm structural overhead space',
+                    'Seismic floor anchor plates: Tied at structural joints'
+                ],
+                mep: [
+                    'Lighting layouts: Dynamic recessed LED conduits mapped to sub-panels',
+                    'Warm-air ventilation supply: Drop-ceiling registers for fresh air intake',
+                    'Power outlets: Insulated surface-mounted wall socket boxes'
+                ]
+            },
+            'B-B1': {
+                title: 'Section B-B1 @ Kitchen, Dining Rm. and Liv. Rm.',
+                filename: 'section B-B1.jpg',
+                narrative: 'Longitudinal profile view displaying structural spans of active living, dining, and kitchen zones. Details overhead cabinet clearances and mechanical counter setups.',
+                structural: [
+                    'Main structural beam: HSS overhead profiles supporting seams',
+                    'Exterior cladding frame: Z-girts holding ACM metal screens',
+                    'Slab modifications: Floor reinforcement plates under heavy fridges'
+                ],
+                mep: [
+                    'Kitchen range hoods: Dedicated exhaust grease trap ventilation lines',
+                    'Under-counter wiring: Waterproof conduit pathways for appliances',
+                    'Water heaters: Direct utility linkage points inside cabinetry'
+                ]
+            },
+            'B-B2': {
+                title: 'Section B-B2 @ Bedroom, Hall Way and Ent.',
+                filename: 'section B-B2.jpg',
+                narrative: 'Longitudinal view detailing the entrance vestibule, transitions through common corridors, and bedroom structural clearances.',
+                structural: [
+                    'Main structural entrance columns: 150x150x8mm perimeter steel',
+                    'Sub-floor construction: Pre-cast lightweight concrete floor base',
+                    'Demising wall partitions: Double gypsum board drywalls for fire rating'
+                ],
+                mep: [
+                    'Main entry lighting grids: Sconces and emergency exit light batteries',
+                    'Access hatches: Ceiling utility crawlways under common spaces',
+                    'Thermostat sensors: Multi-zone remote digital temperature relays'
+                ]
+            }
+        };
+
+        // Realtime Viewport State Variables
+        let blueprintModeActive = false;
+        let rulerModeActive = false;
+        let selectedSection = 'A-A1';
+
+        // Zoom & Pan coordinates tracking
+        let planTransform = { x: 0, y: 0, scale: 1 };
+        let sectionTransform = { x: 0, y: 0, scale: 1 };
+        let isPanningPlan = false;
+        let isPanningSection = false;
+        let startPanX = 0, startPanY = 0;
+
+        // Interactive Ruler coordinates
+        let rulerPoints = [];
+        const scaleFactor = 0.024; // Metric scaling factor based on floorplan-TYP layout dimensions
+
+        // Initialize real-time pan/zoom viewport listeners
+        function initViewports() {
+            const planContainer = document.getElementById('viewport-plan-container');
+            const planEl = document.getElementById('pan-zoom-plan');
+            const sectionContainer = document.getElementById('viewport-section-container');
+            const sectionEl = document.getElementById('pan-zoom-section');
+
+            // --- VIEWPORT 1: PLAN VIEW EVENT HANDLERS ---
+            planContainer.addEventListener('mousedown', (e) => {
+                if (rulerModeActive) {
+                    handleRulerClick(e, planContainer, planTransform);
+                    return;
+                }
+                isPanningPlan = true;
+                planContainer.style.cursor = 'grabbing';
+                startPanX = e.clientX - planTransform.x;
+                startPanY = e.clientY - planTransform.y;
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (isPanningPlan) {
+                    planTransform.x = e.clientX - startPanX;
+                    planTransform.y = e.clientY - startPanY;
+                    updateViewportTransform('pan-zoom-plan', planTransform);
+                }
+                if (isPanningSection) {
+                    sectionTransform.x = e.clientX - startPanX;
+                    sectionTransform.y = e.clientY - startPanY;
+                    updateViewportTransform('pan-zoom-section', sectionTransform);
+                }
+            });
+
+            window.addEventListener('mouseup', () => {
+                if (isPanningPlan) {
+                    isPanningPlan = false;
+                    planContainer.style.cursor = 'crosshair';
+                }
+                if (isPanningSection) {
+                    isPanningSection = false;
+                    sectionContainer.style.cursor = 'grab';
+                }
+            });
+
+            // Touch events for mobile/tablet devices
+            planContainer.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) {
+                    if (rulerModeActive) return;
+                    isPanningPlan = true;
+                    startPanX = e.touches[0].clientX - planTransform.x;
+                    startPanY = e.touches[0].clientY - planTransform.y;
+                }
+            });
+
+            planContainer.addEventListener('touchmove', (e) => {
+                if (isPanningPlan && e.touches.length === 1) {
+                    e.preventDefault();
+                    planTransform.x = e.touches[0].clientX - startPanX;
+                    planTransform.y = e.touches[0].clientY - startPanY;
+                    updateViewportTransform('pan-zoom-plan', planTransform);
+                }
+            });
+
+            planContainer.addEventListener('touchend', () => { isPanningPlan = false; });
+
+            // Scroll zoom
+            planContainer.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const zoomFactor = 0.1;
+                if (e.deltaY < 0) {
+                    planTransform.scale = Math.min(planTransform.scale + zoomFactor, 4);
+                } else {
+                    planTransform.scale = Math.max(planTransform.scale - zoomFactor, 0.5);
+                }
+                updateViewportTransform('pan-zoom-plan', planTransform);
+                drawRulerLines();
+            });
+
+            // --- VIEWPORT 2: SECTION VIEW EVENT HANDLERS ---
+            sectionContainer.addEventListener('mousedown', (e) => {
+                isPanningSection = true;
+                sectionContainer.style.cursor = 'grabbing';
+                startPanX = e.clientX - sectionTransform.x;
+                startPanY = e.clientY - sectionTransform.y;
+            });
+
+            sectionContainer.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) {
+                    isPanningSection = true;
+                    startPanX = e.touches[0].clientX - sectionTransform.x;
+                    startPanY = e.touches[0].clientY - sectionTransform.y;
+                }
+            });
+
+            sectionContainer.addEventListener('touchmove', (e) => {
+                if (isPanningSection && e.touches.length === 1) {
+                    e.preventDefault();
+                    sectionTransform.x = e.touches[0].clientX - startPanX;
+                    sectionTransform.y = e.touches[0].clientY - startPanY;
+                    updateViewportTransform('pan-zoom-section', sectionTransform);
+                }
+            });
+
+            sectionContainer.addEventListener('touchend', () => { isPanningSection = false; });
+
+            sectionContainer.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const zoomFactor = 0.1;
+                if (e.deltaY < 0) {
+                    sectionTransform.scale = Math.min(sectionTransform.scale + zoomFactor, 4);
+                } else {
+                    sectionTransform.scale = Math.max(sectionTransform.scale - zoomFactor, 0.5);
+                }
+                updateViewportTransform('pan-zoom-section', sectionTransform);
+            });
+        }
+
+        function updateViewportTransform(elementId, transformObj) {
+            const el = document.getElementById(elementId);
+            if (el) {
+                el.style.transform = `translate(${transformObj.x}px, ${transformObj.y}px) scale(${transformObj.scale})`;
+            }
+        }
+
+        // CAD Modifier Actions
+        function toggleBlueprintMode() {
+            blueprintModeActive = !blueprintModeActive;
+            const imgPlan = document.getElementById('img-floorplan');
+            const imgSection = document.getElementById('img-section-view');
+
+            if (blueprintModeActive) {
+                imgPlan.classList.add('blueprint-mode');
+                imgSection.classList.add('blueprint-mode');
+            } else {
+                imgPlan.classList.remove('blueprint-mode');
+                imgSection.classList.remove('blueprint-mode');
+            }
+        }
+
+        // Toggle measure tool
+        function toggleRulerTool() {
+            rulerModeActive = !rulerModeActive;
+            const btn = document.getElementById('ruler-btn');
+            const infoPanel = document.getElementById('ruler-info-panel');
+
+            if (rulerModeActive) {
+                btn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-500');
+                btn.classList.remove('bg-slate-900', 'text-slate-300');
+                infoPanel.classList.remove('hidden');
+            } else {
+                btn.classList.remove('bg-emerald-600', 'text-white', 'border-emerald-500');
+                btn.classList.add('bg-slate-900', 'text-slate-300');
+                infoPanel.classList.add('hidden');
+                rulerPoints = [];
+                clearRulerCanvas();
+            }
+        }
+
+        function resetViews() {
+            planTransform = { x: 0, y: 0, scale: 1 };
+            sectionTransform = { x: 0, y: 0, scale: 1 };
+            updateViewportTransform('pan-zoom-plan', planTransform);
+            updateViewportTransform('pan-zoom-section', sectionTransform);
+            rulerPoints = [];
+            clearRulerCanvas();
+            if (rulerModeActive) toggleRulerTool();
+            if (!document.getElementById('iso-reference-drawer').classList.contains('hidden')) {
+                toggleIsometricReference();
+            }
+        }
+
+        // Coordinate Measuring Logic
+        function initRulerCanvas() {
+            const canvas = document.getElementById('ruler-canvas');
+            const container = document.getElementById('viewport-plan-container');
+            if (canvas && container) {
+                canvas.width = container.clientWidth;
+                canvas.height = container.clientHeight;
+            }
+        }
+
+        function handleRulerClick(e, container, transform) {
+            const rect = container.getBoundingClientRect();
+            // Calculate absolute coordinate positions relative to pan/zoom transform variables
+            const clickX = (e.clientX - rect.left - transform.x) / transform.scale;
+            const clickY = (e.clientY - rect.top - transform.y) / transform.scale;
+
+            if (rulerPoints.length >= 2) {
+                rulerPoints = [];
+            }
+
+            rulerPoints.push({ x: clickX, y: clickY });
+
+            // Draw line immediately
+            drawRulerLines();
+
+            // Calculate metric distance
+            if (rulerPoints.length === 1) {
+                document.getElementById('p1-coord').innerText = `X:${Math.round(clickX)} Y:${Math.round(clickY)}`;
+                document.getElementById('p2-coord').innerText = `-`;
+                document.getElementById('ruler-span').innerText = `0.00 m`;
+            } else if (rulerPoints.length === 2) {
+                document.getElementById('p2-coord').innerText = `X:${Math.round(clickX)} Y:${Math.round(clickY)}`;
+                const dx = rulerPoints[1].x - rulerPoints[0].x;
+                const dy = rulerPoints[1].y - rulerPoints[0].y;
+                const rawDistance = Math.sqrt(dx * dx + dy * dy);
+                
+                // Scale factor translation into meters
+                const physicalDistance = rawDistance * scaleFactor;
+                document.getElementById('ruler-span').innerText = `${physicalDistance.toFixed(2)} m`;
+            }
+        }
+
+        function drawRulerLines() {
+            const canvas = document.getElementById('ruler-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (rulerPoints.length === 0) return;
+
+            // Project absolute coordinates to transform screenspace coordinates
+            const project = (pt) => {
+                return {
+                    x: pt.x * planTransform.scale + planTransform.x,
+                    y: pt.y * planTransform.scale + planTransform.y
+                };
+            };
+
+            const p1 = project(rulerPoints[0]);
+
+            // Draw Point 1
+            ctx.fillStyle = '#10b981';
+            ctx.beginPath();
+            ctx.arc(p1.x, p1.y, 6, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            if (rulerPoints.length === 2) {
+                const p2 = project(rulerPoints[1]);
+
+                // Draw Line
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.strokeStyle = '#eab308';
+                ctx.lineWidth = 2.5;
+                ctx.setLineDash([4, 4]);
+                ctx.stroke();
+
+                // Draw Point 2
+                ctx.fillStyle = '#eab308';
+                ctx.beginPath();
+                ctx.arc(p2.x, p2.y, 6, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+            }
+        }
+
+        function clearRulerCanvas() {
+            const canvas = document.getElementById('ruler-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+            document.getElementById('p1-coord').innerText = `-`;
+            document.getElementById('p2-coord').innerText = `-`;
+            document.getElementById('ruler-span').innerText = `0.00 m`;
+        }
+
+        // Dynamic loading for corresponding selected section sheet
+        function loadAecSection(sectionKey) {
+            selectedSection = sectionKey;
+            const data = designSheetData[sectionKey];
+            if (!data) return;
+
+            // Load drawing image inside Viewport 2 (Using encodeURI to secure files with spaces)
+            const imgEl = document.getElementById('img-section-view');
+            imgEl.src = encodeURI(data.filename);
+
+            // Update Header badges & Info labels
+            document.getElementById('active-sheet-badge').innerText = data.filename;
+            document.getElementById('section-label-filename').innerText = data.filename;
+            document.getElementById('active-spec-title').innerText = data.title;
+            document.getElementById('active-spec-narrative').innerText = data.narrative;
+
+            // Render dynamic structural checklist specs
+            const structuralUl = document.getElementById('spec-list-structural');
+            structuralUl.innerHTML = '';
+            data.structural.forEach(item => {
+                structuralUl.innerHTML += `<li><i class="fa-solid fa-circle text-[6px] text-blue-400 mr-2"></i>${item}</li>`;
+            });
+
+            // Render dynamic MEP checklist specs
+            const mepUl = document.getElementById('spec-list-mep');
+            mepUl.innerHTML = '';
+            data.mep.forEach(item => {
+                mepUl.innerHTML += `<li><i class="fa-solid fa-circle text-[6px] text-emerald-400 mr-2"></i>${item}</li>`;
+            });
+
+            // Re-apply filter modes if active
+            const imgSection = document.getElementById('img-section-view');
+            if (blueprintModeActive) {
+                imgSection.classList.add('blueprint-mode');
+            } else {
+                imgSection.classList.remove('blueprint-mode');
+            }
+
+            // Animate Viewport 2 status dot indicator
+            const statusDot = document.getElementById('section-status-dot');
+            statusDot.classList.remove('bg-red-500');
+            statusDot.classList.add('bg-emerald-500');
+            setTimeout(() => {
+                statusDot.classList.remove('bg-emerald-500');
+                statusDot.classList.add('bg-blue-500');
+            }, 800);
+        }
+
+        // Chapter 6 Live Takeoff Calculations
+        function updateCalculators() {
+            const stories = parseInt(document.getElementById('input-stories').value);
+            const glazing = parseInt(document.getElementById('input-glazing').value);
+
+            document.getElementById('label-stories').innerText = `${stories} Levels / Stories`;
+            document.getElementById('label-glazing').innerText = `${glazing}% Glazing Ratio`;
+
+            const modulesPerFloor = 18; // 8 x 1-Bed double-wide (16 mods) + 2 x Bachelor single-wide (2 mods)
+            const totalModules = stories * modulesPerFloor;
+            
+            const baseAcmArea = 3950;
+            const calculatedAcm = Math.round(stories * baseAcmArea * (1 - (glazing / 100) * 0.45));
+            const calculatedGlass = Math.round(stories * baseAcmArea * ((glazing / 100) * 0.65));
+
+            const avgCostPerModule = 62000;
+            const calculatedTotalCost = totalModules * avgCostPerModule + (calculatedGlass * 120) + (calculatedAcm * 45);
+
+            document.getElementById('out-iso').innerText = `${totalModules} Modules`;
+            document.getElementById('out-acm').innerText = `${calculatedAcm.toLocaleString()} SQFT`;
+            document.getElementById('out-glass').innerText = `${calculatedGlass.toLocaleString()} SQFT`;
+            document.getElementById('out-cost').innerText = `$${Math.round(calculatedTotalCost).toLocaleString()} USD`;
+        }
+
+        // Modal triggers
+        function openPrintView() {
+            document.getElementById('print-modal').classList.remove('hidden');
+        }
+
+        function closePrintView() {
+            document.getElementById('print-modal').classList.add('hidden');
+        }
+
+        // Toggle Permit Rows Collapsibles
+        function togglePermitRow(rowId) {
+            const el = document.getElementById(rowId);
+            const icon = document.getElementById(`icon-${rowId}`);
+            
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                icon.className = "fa-solid fa-chevron-up text-xs text-slate-300";
+            } else {
+                el.classList.add('hidden');
+                icon.className = "fa-solid fa-chevron-down text-xs text-slate-500";
+            }
+        }
+
+        // Reload the Sketchfab IFrame to reset model camera state
+        function reloadSketchfab() {
+            const iframe = document.getElementById('sketchfab-frame');
+            if (iframe) {
+                iframe.src = iframe.src;
+            }
+        }
+
+        // Window resize adjustment
+        window.addEventListener('resize', initRulerCanvas);
+
+        // Initialize calculations and setups
+        window.onload = function() {
+            updateCalculators();
+            initViewports();
+            initRulerCanvas();
+            loadAecSection('A-A1'); // Default initial load
+        }
+    </script>
+</body>
+</html>
